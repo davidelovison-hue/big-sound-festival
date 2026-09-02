@@ -5,7 +5,6 @@ import { CartPanel } from '../components/CartPanel';
 import { FestivalGallery } from '../components/FestivalGallery';
 import { FestivalNavbar } from '../components/FestivalNavbar';
 import { OverviewCollapsible } from '../components/OverviewCollapsible';
-import { PlanCarouselFilter } from '../components/PlanCarouselFilter';
 import { PlanCategorySection } from '../components/PlanCategorySection';
 import { PlanCrossSellStrip } from '../components/PlanCrossSellStrip';
 import { PlanTabs } from '../components/PlanTabs';
@@ -13,8 +12,8 @@ import { useCart } from '../lib/cartContext';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
 import { useIsMobile } from '../lib/useIsMobile';
 import {
-  ALL_CAROUSELS,
-  getCarouselsForCategories,
+  DEFAULT_PLAN_STEP,
+  PLAN_CORE_STEP_IDS,
   getCategoriesForStep,
   getPlanStep,
   getStepIdFromHash,
@@ -25,8 +24,8 @@ import './PlanPage.css';
 
 function getTabFromHash(): PlanStepId {
   const hash = window.location.hash.replace(/^#/, '');
-  if (hash === 'overview') return 'pass';
-  if (hash === 'accompagnant' || hash === 'pmr') return 'pass';
+  if (hash === 'overview') return DEFAULT_PLAN_STEP;
+  if (hash === 'accompagnant' || hash === 'pmr') return DEFAULT_PLAN_STEP;
   return getStepIdFromHash(hash);
 }
 
@@ -60,8 +59,6 @@ function isTabsBarStickyNow() {
 }
 
 function getScrollTargetEl(tabId: string) {
-  const filter = document.querySelector<HTMLElement>('.planCarouselFilter');
-  if (filter) return filter;
   const categories = getCategoriesForStep(tabId);
   const firstId = categories[0]?.id;
   const section = firstId ? document.getElementById(firstId) : document.getElementById(tabId);
@@ -140,7 +137,7 @@ function getTicketSectionScrollTop() {
   const fromTabs = getPlanTabsScrollTop();
   if (fromTabs != null) return fromTabs;
 
-  const section = document.getElementById('acceso');
+  const section = document.getElementById(DEFAULT_PLAN_STEP);
   if (!section) return null;
   const nav = document.querySelector<HTMLElement>('.planStickyNav');
   const navH = nav?.getBoundingClientRect().height ?? 0;
@@ -209,13 +206,11 @@ export function PlanPage() {
   const isMobile = useIsMobile();
   const [activeTab, setActiveTab] = useState<PlanStepId>(getTabFromHash);
   const [isOverviewOpen, setIsOverviewOpen] = useState(shouldOpenOverviewFromHash);
-  const [activeCarouselId, setActiveCarouselId] = useState(ALL_CAROUSELS);
   const hasInitialTabScrollRef = useRef(false);
   const hasCart = items.length > 0;
   const stepCategories = getCategoriesForStep(activeTab);
   // A category heading that repeats the selected tab adds nothing.
   const activeStepTitle = getPlanStep(activeTab)?.title;
-  const stepCarousels = getCarouselsForCategories(stepCategories, activeStepTitle);
 
   // Logo / home: land at the very top of the page (no section jump).
   useLayoutEffect(() => {
@@ -235,10 +230,6 @@ export function PlanPage() {
     [activeTab],
   );
 
-  useEffect(() => {
-    setActiveCarouselId(ALL_CAROUSELS);
-  }, [activeTab]);
-
   const selectPlanTab = useCallback((tabId: string) => {
     const stepId = getStepIdFromHash(tabId);
     setIsOverviewOpen(false);
@@ -252,11 +243,11 @@ export function PlanPage() {
 
   const handleGoToTickets = useCallback(() => {
     setIsOverviewOpen(false);
-    if (activeTab !== 'pass') {
-      setActiveTab('pass');
-      window.history.pushState(null, '', '#pass');
+    if (activeTab !== DEFAULT_PLAN_STEP) {
+      setActiveTab(DEFAULT_PLAN_STEP);
+      window.history.pushState(null, '', `#${DEFAULT_PLAN_STEP}`);
     } else {
-      window.history.replaceState(null, '', '#pass');
+      window.history.replaceState(null, '', `#${DEFAULT_PLAN_STEP}`);
     }
     scheduleScrollToTicketSection();
   }, [activeTab]);
@@ -292,7 +283,7 @@ export function PlanPage() {
     if (!hasInitialTabScrollRef.current) {
       hasInitialTabScrollRef.current = true;
       const hash = window.location.hash.replace(/^#/, '');
-      if ((activeTab === 'pass' && !hash) || hash === 'overview') {
+      if ((activeTab === DEFAULT_PLAN_STEP && !hash) || hash === 'overview') {
         return;
       }
     }
@@ -327,17 +318,11 @@ export function PlanPage() {
         <div className="planMainShell">
           <div className="planMainColumn">
             <div className="planContentColumn">
-              <PlanCarouselFilter
-                value={activeCarouselId}
-                options={stepCarousels}
-                onChange={setActiveCarouselId}
-              />
               {stepCategories.map((category) => (
                 <PlanCategorySection
                   key={category.id}
                   category={category}
                   isActive
-                  visibleGroupId={activeCarouselId}
                   prefixCarouselTitles={shouldPrefixCategory(
                     stepCategories,
                     category,
@@ -345,7 +330,9 @@ export function PlanPage() {
                   )}
                 />
               ))}
-              {activeTab === 'pass' ? <PlanCrossSellStrip onSelectTab={selectPlanTab} /> : null}
+              {PLAN_CORE_STEP_IDS.includes(activeTab) ? (
+                <PlanCrossSellStrip activeTab={activeTab} onSelectTab={selectPlanTab} />
+              ) : null}
             </div>
             {isMobile ? <AddToCartToast variant="mobile" /> : null}
           </div>

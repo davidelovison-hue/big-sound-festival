@@ -16,7 +16,7 @@ import './PmrPreBookingPage.css';
 const CHOICE = 'Your choice';
 
 const GENDER_OPTIONS = ['Man', 'Woman', 'Non-binary', 'Prefer not to say'];
-const COUNTRY_OPTIONS = ['Mexico', 'United States', 'Canada', 'United Kingdom', 'Spain', 'Other'];
+const COUNTRY_OPTIONS = ['Spain', 'France', 'Portugal', 'United Kingdom', 'United States', 'Mexico', 'Other'];
 const SITUATION_OPTIONS = [
   'Wheelchair user',
   'Reduced mobility (without a wheelchair)',
@@ -56,7 +56,7 @@ const emptyAnswers = (): PmrPreBookingAnswers => ({
   birthDay: '',
   birthMonth: '',
   birthYear: '',
-  phoneCountryCode: '+52',
+    phoneCountryCode: '+34',
   phoneNational: '',
   country: '',
   city: '',
@@ -87,7 +87,7 @@ export function PmrPreBookingPage() {
   const [fileName, setFileName] = useState(data?.pmrProofFileName ?? '');
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />;
+    return <Navigate to={eventId ? planPath('abonos') : '/'} replace />;
   }
 
   if (!checkoutRequiresPmrProof(data)) {
@@ -231,11 +231,11 @@ export function PmrPreBookingPage() {
                       value={answers.phoneCountryCode}
                       onChange={(e) => setField('phoneCountryCode', e.target.value)}
                     >
-                      <option value="+52">🇲🇽 +52</option>
-                      <option value="+1">🇺🇸 +1</option>
-                      <option value="+44">🇬🇧 +44</option>
                       <option value="+34">🇪🇸 +34</option>
                       <option value="+33">🇫🇷 +33</option>
+                      <option value="+351">🇵🇹 +351</option>
+                      <option value="+44">🇬🇧 +44</option>
+                      <option value="+1">🇺🇸 +1</option>
                     </select>
                     <input
                       id="pmr-phone"

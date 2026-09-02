@@ -17,7 +17,12 @@ export function OverviewCollapsible({ isOpen, onToggle, id = 'overview' }: Overv
       aria-label="Overview"
     >
       <div className="planOverviewLineup">
-        <FestivalArtistsCarousel artists={FESTIVAL_ARTISTS} title="Lineup" hideDay />
+        <FestivalArtistsCarousel
+          artists={FESTIVAL_ARTISTS}
+          title="Lineup"
+          hint="18–19 June 2027"
+          hideDay={false}
+        />
       </div>
 
       <button

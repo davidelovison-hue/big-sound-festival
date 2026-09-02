@@ -3,7 +3,7 @@
 export type CheckoutLineItem = {
   id: string
   label: string
-  /** Line total in MXN */
+  /** Line total in EUR */
   amount: number
 }
 
@@ -29,7 +29,7 @@ export type EventCheckoutState = {
   serviceFee: number
   total: number
   /** Restore tab when going back to the event page */
-  returnTab: 'general' | 'vip'
+  returnTab: string
   /** Festival plan hash tab to restore (e.g. tickets, camping) */
   returnHash?: string
   /** Set after email / connect step */
@@ -103,7 +103,7 @@ export function isEventCheckoutState(x: unknown): x is EventCheckoutState {
     typeof o.subtotal === 'number' &&
     typeof o.serviceFee === 'number' &&
     typeof o.total === 'number' &&
-    (o.returnTab === 'general' || o.returnTab === 'vip')
+    typeof o.returnTab === 'string'
 
   if (!base) return false
   if (o.email !== undefined && typeof o.email !== 'string') return false
@@ -236,7 +236,7 @@ function guestDisplayNameFromEmail(email: string, name?: string): string {
 export function placeholderGuestForPostBooking(email: string, name?: string): GuestDetails {
   return {
     fullName: guestDisplayNameFromEmail(email, name),
-    phoneCountryCode: '+52',
+    phoneCountryCode: '+34',
     phoneNational: '',
     dateOfBirth: '',
     gender: '',
@@ -247,7 +247,7 @@ export function placeholderGuestForPostBooking(email: string, name?: string): Gu
 export function placeholderGuestForCheckout(email: string, name?: string): GuestDetails {
   return {
     ...placeholderGuestForPostBooking(email, name),
-    phoneNational: '5512345678',
+    phoneNational: '612345678',
     dateOfBirth: '01/01/1990',
     gender: 'prefer_not',
   }

@@ -1,30 +1,13 @@
 # Big Sound Festival
 
-Festival ticketing prototype skeleton, forked from [fever-festival-plan](https://davidelovison-hue.github.io/fever-festival-plan/). Same pages, cart, and checkout flow — swap the sample festival data when Big Sound is ready.
+Festival ticketing prototype for **BIGSOUND Valencia 2027** (18–19 June, Parc Central de Torrent), using the [fever-festival-plan](https://davidelovison-hue.github.io/fever-festival-plan/) skeleton.
 
-## Sample festival (placeholder)
+## Plan tabs
 
-The UI currently uses **Bahidorá 2027** as working sample content so the skeleton is complete. Replace it with Big Sound in:
+1. **Abonos** — weekend passes: General (€49), Front Stage (€89), VIPSOUND (€230)
+2. **Add-ons** — cashless Promo 30 (€30 + €5 extra), Promo 50 (€50 + €10 extra), and Ingood reimbursement insurance
 
-| File | What to change |
-| --- | --- |
-| `src/lib/festivalEvent.ts` | Event id, title, venue, dates, logo |
-| `src/data/festivalConfig.ts` | Hero media, facts, overview copy, currency |
-| `src/data/festivalArtists.ts` | Lineup carousel |
-| `src/data/planCatalog.ts` | Tickets, bundles, camping, extras |
-| `public/` | Logo, poster, hero video, gallery, product photos |
-| `index.html` | Document title |
-
-## App structure
-
-- `/` — plan page (overview, tickets, add-ons)
-- `/event/:eventId/connect` — login / social connect
-- `/event/:eventId/guest-checkout` — guest details
-- `/event/:eventId/checkout` — payment
-- `/event/:eventId/pmr-questions` — accessibility questions
-- `/event/:eventId/post-booking` — post-purchase
-- `/event/:eventId/confirmation` — order confirmation
-- `/account` — account
+Prices for weekend abonos follow the official [purchase guide](https://bigsoundfestival.com/valencia/guia-compra).
 
 ## Commands
 
@@ -32,7 +15,6 @@ The UI currently uses **Bahidorá 2027** as working sample content so the skelet
 npm install
 npm run dev      # http://localhost:5174
 npm run build
-npm run deploy   # GitHub Pages → big-sound-festival
 ```
 
 ## Live URL

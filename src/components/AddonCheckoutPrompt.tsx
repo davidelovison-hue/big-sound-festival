@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef } from 'react';
-import { PLAN_STEPS } from '../data/planCatalog';
+import { PLAN_CORE_STEP_IDS, PLAN_STEPS } from '../data/planCatalog';
 import './AddonCheckoutPrompt.css';
 
 type AddonCheckoutPromptProps = {
@@ -54,10 +54,10 @@ export function AddonCheckoutPrompt({
         aria-labelledby={titleId}
       >
         <h2 id={titleId} className="addonCheckoutPrompt__title">
-          Add camping, stays, or extras?
+          Add a cashless top-up or insurance?
         </h2>
         <div className="addonCheckoutPrompt__options">
-          {PLAN_STEPS.filter((step) => step.id !== 'pass').map((step, index) => (
+          {PLAN_STEPS.filter((step) => !PLAN_CORE_STEP_IDS.includes(step.id)).map((step, index) => (
             <button
               key={step.id}
               ref={index === 0 ? firstOptionRef : undefined}

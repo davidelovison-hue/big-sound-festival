@@ -58,7 +58,7 @@ function getContactErrors(form: GuestContactForm): GuestContactErrors {
 function guestFromContact(form: GuestContactForm): GuestDetails {
   return {
     fullName: `${form.firstName.trim()} ${form.lastName.trim()}`.trim(),
-    phoneCountryCode: '+52',
+    phoneCountryCode: '+34',
     phoneNational: '',
     dateOfBirth: '',
     gender: '',
@@ -105,7 +105,7 @@ export function GuestCheckoutPage() {
   }
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />
+    return <Navigate to={eventId ? planPath('abonos') : '/'} replace />
   }
 
   if (checkoutRequiresPmrProof(data) && !checkoutHasPmrProof(data)) {

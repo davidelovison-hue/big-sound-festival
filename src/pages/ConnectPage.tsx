@@ -88,13 +88,14 @@ export function ConnectPage() {
   const verifyFooterColumns = useMemo(() => {
     if (!eventId) return []
     const eventTitle = event?.title ?? 'Festival'
-    const ticketsHref = planPath(data?.returnHash ?? 'acceso')
+    const ticketsHref = planPath(data?.returnHash ?? 'abonos')
     return [
       {
         title: 'Tickets',
         links: [
-          { label: `${eventTitle} — General Admission`, href: ticketsHref },
-          { label: `${eventTitle} — Oasis Banamex`, href: ticketsHref },
+          { label: `${eventTitle} — Abono General`, href: ticketsHref },
+          { label: `${eventTitle} — Front Stage`, href: ticketsHref },
+          { label: `${eventTitle} — VIPSOUND`, href: ticketsHref },
         ],
       },
       {
@@ -113,7 +114,7 @@ export function ConnectPage() {
   }, [event?.title, eventId])
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />
+    return <Navigate to={eventId ? planPath('abonos') : '/'} replace />
   }
 
   const trimmedEmail = email.trim()

@@ -1,7 +1,5 @@
 /**
- * Festival-specific branding and copy.
- * Swap this file (plus festivalEvent.ts, festivalArtists.ts, planCatalog.ts, public/)
- * when adapting the skeleton to a new festival.
+ * Festival-specific branding and copy for BIGSOUND Valencia 2027.
  */
 
 export type PlanCategory = {
@@ -11,16 +9,12 @@ export type PlanCategory = {
 
 export const PLAN_CATEGORIES: PlanCategory[] = [
   { id: 'overview', title: 'Overview' },
-  { id: 'acceso', title: 'Entry pass' },
-  { id: 'bundles', title: 'Bundles' },
-  { id: 'camping', title: 'Camping' },
-  { id: 'glamping', title: 'Glamping & Hotel' },
-  { id: 'transport', title: 'Bus & Parking' },
-  { id: 'extra', title: 'Extra' },
+  { id: 'abonos', title: 'Abonos' },
+  { id: 'addons', title: 'Add-ons' },
 ];
 
-/** Default plan tab (Entry pass). */
-export const DEFAULT_PLAN_TAB = 'pass';
+/** Default plan tab (weekend abonos). */
+export const DEFAULT_PLAN_TAB = 'abonos';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -34,23 +28,23 @@ export const HERO_GRID_IMAGES = [
 export const GALLERY_IMAGES = [
   {
     src: `${BASE}festival-poster.jpg`,
-    alt: 'Bahidorá 2027 — Las Estacas, Morelos',
+    alt: 'BIGSOUND Festival 2027 — Parc Central, Torrent',
   },
   {
     src: HERO_GRID_IMAGES[0],
-    alt: 'River and spring at Las Estacas',
+    alt: 'Crowd at BIGSOUND Festival',
   },
   {
     src: HERO_GRID_IMAGES[1],
-    alt: 'Outdoor stage in the jungle',
+    alt: 'Main stage at BIGSOUND',
   },
   {
     src: HERO_GRID_IMAGES[2],
-    alt: 'Crowd at Bahidorá at sunset',
+    alt: 'Night concert at BIGSOUND Valencia',
   },
   {
     src: HERO_GRID_IMAGES[3],
-    alt: 'Campsite by the river',
+    alt: 'Festival crowd under the lights',
   },
 ];
 
@@ -72,58 +66,58 @@ export const AVATAR_URL =
 export const VENUE_IMAGE = `${BASE}hero-grid-1.jpg`;
 
 export const HERO_FACTS = [
-  { label: 'Date', value: '13–15 Feb' },
-  { label: 'Duration', value: '3 days' },
+  { label: 'Date', value: '18–19 Jun' },
+  { label: 'Duration', value: '2 days' },
   { label: 'Format', value: 'Outdoor' },
-  { label: 'City', value: 'Morelos' },
+  { label: 'City', value: 'Torrent' },
 ] as const;
 
 export const OVERVIEW_INFO = [
   {
     icon: '📅',
     label: 'Date',
-    text: '13–15 February 2027 (Friday–Sunday)',
+    text: '18–19 June 2027 (Friday–Saturday). Doors 16:00–02:00 both days.',
   },
   {
     icon: '📍',
     label: 'Location',
-    text: 'Parque Las Estacas — Tlaltizapán, Morelos, Mexico',
+    text: 'Parc Central de Torrent — Avinguda del Rei Joan Carles I, 22, 46900 Torrent, Valencia',
   },
   {
     icon: '🔞',
     label: 'Age',
-    text: '18+ with valid government-issued ID required at the gate.',
+    text: 'Under 16 must be with a parent or legal guardian. Ages 16–17 need a signed authorization. Children up to 6 enter free with an adult (one child per ticket).',
   },
   {
     icon: '♿',
     label: 'Accessibility',
-    text: 'Contact boletaje@volveraflotar.com for access requirements before the event.',
+    text: 'Contact ventas@enterticket.es for access requirements before the event.',
   },
 ];
 
 export const FESTIVAL_CURRENCY = {
-  locale: 'es-MX',
-  prefix: 'MXN $',
+  locale: 'es-ES',
+  currency: 'EUR',
 } as const;
 
 export const FESTIVAL_COPY = {
   intro:
-    'Bahidorá is a boutique music festival on the rivers of Las Estacas, Morelos — three days of electronic, live and tropical sounds in an open-air nature park. Swim by day, dance at Sonorama, El Cubo and La Estación by night.',
-  introCta: 'Get your tickets now for the 2027 edition!',
+    'BIGSOUND is Valencia’s urban music festival — two days of pop, urbano and live hits at Parc Central de Torrent. The 2027 edition lands on 18 and 19 June, with more stages and more space for the biggest weekend of the summer.',
+  introCta: 'Abonos 2027 are on sale now!',
   ticketTabs:
-    'Browse Entry pass, Bundles, Camping, Glamping & Hotel, Bus & Parking, and Extra in the tabs above. Tickets are personalized before the event.',
-  supportEmail: 'boletaje@volveraflotar.com',
+    'Browse Abonos and Add-ons in the tabs above. Tickets are nominative and swapped for a cashless wristband at accreditation.',
+  supportEmail: 'ventas@enterticket.es',
   privacyUrl: 'https://feverup.com',
-  officialSiteUrl: 'https://bahidora.com/',
-  officialSiteLabel: 'bahidora.com',
-  marketingBrand: 'Bahidorá',
+  officialSiteUrl: 'https://bigsoundfestival.com/valencia/abonos',
+  officialSiteLabel: 'bigsoundfestival.com',
+  marketingBrand: 'BIGSOUND Festival',
   venue: {
-    name: 'Parque Las Estacas',
-    text: 'A natural park of rivers, springs and jungle in Tlaltizapán, Morelos — about 90 minutes from Mexico City. Stages sit among swimming holes, camping and glamping.',
+    name: 'Parc Central de Torrent',
+    text: 'An open-air park about 8 km from Valencia city, with Metrovalencia to Torrent Avinguda (~300 m from the gate), shuttle buses, and more than 4,000 public parking spaces.',
   },
   gettingThere: {
-    name: 'Las Estacas',
-    address: 'Parque Las Estacas\nTlaltizapán, Morelos\nMexico',
-    mapQuery: 'Parque Las Estacas Tlaltizapan Morelos',
+    name: 'Parc Central',
+    address: 'Avinguda del Rei Joan Carles I, 22\n46900 Torrent, Valencia\nSpain',
+    mapQuery: 'Parc Central Torrent Valencia',
   },
 } as const;

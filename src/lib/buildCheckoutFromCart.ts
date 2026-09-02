@@ -11,7 +11,7 @@ function lineLabel(item: CartItem): string {
 
 export function buildCheckoutFromCart(
   items: CartItem[],
-  returnHash = 'acceso',
+  returnHash = 'abonos',
 ): EventCheckoutState | null {
   if (items.length === 0) return null;
 
@@ -34,7 +34,7 @@ export function buildCheckoutFromCart(
     subtotal,
     serviceFee,
     total: subtotal + serviceFee,
-    returnTab: 'general',
+    returnTab: returnHash,
     returnHash,
   };
 }

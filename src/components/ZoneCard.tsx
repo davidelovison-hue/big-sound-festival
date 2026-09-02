@@ -144,7 +144,7 @@ export function ZoneCard({
               marginBottom: 0,
             }}
           >
-            from {zone.price} MXN
+            from {zone.price} EUR
           </p>
           <p
             style={{

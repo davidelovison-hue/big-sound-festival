@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { PLAN_STEPS, type PlanStepId } from '../data/planCatalog';
+import { PLAN_CORE_STEP_IDS, PLAN_STEPS, type PlanStepId } from '../data/planCatalog';
 import './PlanTabs.css';
 
-const CORE_TAB_IDS = new Set<PlanStepId>(['pass']);
+const CORE_TAB_IDS = new Set<PlanStepId>(PLAN_CORE_STEP_IDS);
 
 type PlanTabsProps = {
   activeTab: PlanStepId;

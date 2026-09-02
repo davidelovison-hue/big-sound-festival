@@ -7,7 +7,7 @@ export const DEMO_ORDER_EVENT_ID = FESTIVAL_EVENT_ID;
 
 export function ensureDemoOrder(): OrderConfirmationState | null {
   const session = getUserSession();
-  const ticketSubtotal = 3390;
+  const ticketSubtotal = 49;
   const serviceFee = computeServiceFee(ticketSubtotal);
   const total = ticketSubtotal + serviceFee;
 
@@ -17,21 +17,21 @@ export function ensureDemoOrder(): OrderConfirmationState | null {
     eventImage: FESTIVAL_EVENT.image,
     venue: FESTIVAL_EVENT.venue,
     dateLine: FESTIVAL_EVENT.dateLine,
-    lines: [{ id: 'ticket-full-weekend', label: '1× 3 days', amount: ticketSubtotal }],
+    lines: [{ id: 'abono-general', label: '1× Abono General', amount: ticketSubtotal }],
     subtotal: ticketSubtotal,
     serviceFee,
     total,
-    returnTab: 'general',
-    returnHash: 'acceso',
+    returnTab: 'abonos',
+    returnHash: 'abonos',
     email: session?.email ?? 'guest@feverup.com',
     guest: {
       fullName: session?.name ?? 'Demo Guest',
-      phoneCountryCode: '+52',
-      phoneNational: '5512345678',
+      phoneCountryCode: '+34',
+      phoneNational: '612345678',
       dateOfBirth: '01/01/1990',
       gender: 'prefer_not',
     },
-    orderRef: 'BAHI-DEMO-7K2M9X',
+    orderRef: 'BIGS-DEMO-7K2M9X',
   };
 
   persistOrderConfirmation(payload);

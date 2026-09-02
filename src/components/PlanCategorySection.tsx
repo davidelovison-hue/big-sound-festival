@@ -1,10 +1,5 @@
 import type { ReactNode } from 'react';
-import {
-  ALL_CAROUSELS,
-  formatCarouselTitle,
-  type PlanCategory,
-  type PlanGroup,
-} from '../data/planCatalog';
+import { formatCarouselTitle, type PlanCategory, type PlanGroup } from '../data/planCatalog';
 import { EntityCard } from './EntityCard';
 import { GroupCarousel } from './GroupCarousel';
 import { OverviewSection } from './OverviewSection';
@@ -15,7 +10,6 @@ type PlanCategorySectionProps = {
   isActive?: boolean;
   /** Carry the category name in each carousel title instead of a heading row. */
   prefixCarouselTitles?: boolean;
-  visibleGroupId?: string;
   footer?: ReactNode;
 };
 
@@ -23,27 +17,16 @@ export function PlanCategorySection({
   category,
   isActive = true,
   prefixCarouselTitles = false,
-  visibleGroupId = ALL_CAROUSELS,
   footer,
 }: PlanCategorySectionProps) {
   const groups = category.groups.filter((group) => group.entities.length > 0);
   const equalRow = category.cardLayout === 'equalRow';
-  const isFiltered = visibleGroupId !== ALL_CAROUSELS;
-  const selectedGroup = isFiltered
-    ? groups.find((group) => group.id === visibleGroupId) ?? null
-    : null;
-  const hideSection = isFiltered && !selectedGroup;
-  const groupsToShow = selectedGroup ? [selectedGroup] : groups;
-  const showCarouselTitle = prefixCarouselTitles || groups.length > 1 || Boolean(selectedGroup);
-  const mobileGroupLayout = isFiltered ? 'filtered' : 'all';
+  const showCarouselTitle = prefixCarouselTitles || groups.length > 1;
 
   const carouselTitle = (group: PlanGroup) =>
     formatCarouselTitle(category.title, group.title, prefixCarouselTitles);
 
-  const sectionVisible = isActive && !hideSection;
-  const sectionClassName = sectionVisible
-    ? 'categorySection'
-    : 'categorySection categorySectionHidden';
+  const sectionClassName = isActive ? 'categorySection' : 'categorySection categorySectionHidden';
 
   if (category.contentMode === 'overview' || category.id === 'overview') {
     return (
@@ -75,7 +58,7 @@ export function PlanCategorySection({
     <div key={group.id} className="groupBlock">
       {withTitle ? <h3 className="groupCarouselTitle">{carouselTitle(group)}</h3> : null}
       <GroupCarousel
-        mobileGroupLayout={mobileGroupLayout}
+        mobileGroupLayout="all"
         layout={equalRow ? 'equalRow' : 'default'}
         itemCount={group.entities.length}
         ariaLabel={carouselTitle(group)}
@@ -92,13 +75,13 @@ export function PlanCategorySection({
       id={category.id}
       className={sectionClassName}
       aria-label={category.title}
-      aria-hidden={!sectionVisible}
-      hidden={!sectionVisible}
+      aria-hidden={!isActive}
+      hidden={!isActive}
     >
-      {groupsToShow.length > 1 ? (
-        <div className="groupStackAll">{groupsToShow.map((group) => renderGroup(group, true))}</div>
-      ) : groupsToShow[0] ? (
-        renderGroup(groupsToShow[0], showCarouselTitle)
+      {groups.length > 1 ? (
+        <div className="groupStackAll">{groups.map((group) => renderGroup(group, true))}</div>
+      ) : groups[0] ? (
+        renderGroup(groups[0], showCarouselTitle)
       ) : null}
       {footer}
     </section>
